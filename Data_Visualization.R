@@ -1,4 +1,4 @@
-library(ggplot2)
+library("tidyverse")
 participants_data <- read.csv("participants_data.csv")
 
 
@@ -216,19 +216,19 @@ ggplot(data = melted_cormat,
 
 
 # Export figures ####
-
-png(file = "cortile_1.png", width = 7, height = 6, units = "in", res = 400)
-ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_tile() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-dev.off()
-
-png(file = "cortile_2.png", width = 7, height = 6, units = "in", res = 400)
-ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-dev.off()
-
+# 
+# png(file = "cortile_1.png", width = 7, height = 6, units = "in", res = 400)
+# ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_tile() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# dev.off()
+# 
+# png(file = "cortile_2.png", width = 7, height = 6, units = "in", res = 400)
+# ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# dev.off()
+# 
 # png(file = "cortile_3.png", width = 7, height = 6, units = "in", res = 400)
 # ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # dev.off()
-
-png(file = "cortile_4.png", width = 7, height = 6, units = "in", res = 400)
-ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_point() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-dev.off()
+# 
+# png(file = "cortile_4.png", width = 7, height = 6, units = "in", res = 400)
+# ggplot(data = melted_cormat, aes(x = Var1, y = Var2, fill = value)) + geom_point() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# dev.off()
