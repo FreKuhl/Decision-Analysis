@@ -1,6 +1,7 @@
 library("tidyverse")
-participants_data <- read.csv("participants_data.csv")
-
+participants_data <- read.csv("participants_data.csv", stringsAsFactors=FALSE, header=TRUE, check.names = FALSE)
+participants_data<-as.matrix(participants_data)
+save(file="participants_data.Rdata")
 
 # Barplot ####
 
