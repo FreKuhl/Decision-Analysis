@@ -20,7 +20,7 @@ mermaid("graph LR
 make_variables <- function(est,n=1)
 { x<-random(rho=est, n=n)
 for(i in colnames(x)) assign(i,
-                             as.numeric(x[1,i]),envir=.GlobalEnv)
+as.numeric(x[1,i]),envir=.GlobalEnv)
 }
 
 make_variables(as.estimate(input_estimates))
@@ -71,6 +71,7 @@ chile_mc_simulation
 # plot_distributions ####
 plot_distributions(mcSimulation_object = chile_mc_simulation,
                    vars = "final_result",
-                   method = "hist_simple_overlay",
+                   method = "smooth_simple_overlay",
                    old_names = "final_result",
                    new_names = "Outcome distribution for profits")
+

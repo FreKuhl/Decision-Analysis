@@ -2,17 +2,27 @@ library(decisionSupport)
 library (DiagrammeR)
 
 # Impact Pathway ####
-mermaid("graph TD
-        Y(Yield)-->I(Income); style Y fill: green; style I fill:green; 
-        linkStyle 0 stroke:green, stroke-width:2px
-        M(Market price)-->I; style M fill:green;
-        linkStyle 1 stroke: green, stroke-width:2px
-        I-->F(Final result); style F fill:green;
-        linkStyle 2 stroke: green, stroke-width:2px
-        CL(Labor cost)-->F; style CL fill:red
-        linkStyle 3 stroke: red, stroke-width:2px
-        CM(Management cost)-->F; style CM fill:red
-        linkStyle 4 stroke:red, stroke-width:2px
+mermaid("graph LR
+        E(Establishment Cost)-->T(Total Cost); style T fill: red; 
+        linkStyle 0 stroke:red, stroke-width:2px
+        M(Management Cost)-->T; style M fill:blue;
+        linkStyle 1 stroke: red, stroke-width:2px
+        
+        T-->NPV(Net Present Value); style T fill:red;
+        linkStyle 2 stroke: red, stroke-width:2px
+        R(Revenue)-->NPV; style R fill:green;
+        linkStyle 3 stroke: green, stroke-width:2px
+        
+        RT(Regional Truffle)--> R(Revenue);
+        linkStyle 4 stroke: green, stroke-width:2px
+        RN(Regional Nuts)--> R;
+        linkStyle 5 stroke: green, stroke-width:2px
+        FRE(Free Range Eggs)--> R;
+        linkStyle 6 stroke: green, stroke-width:2px
+        HQW(High Quality Wood)--> R;
+        linkStyle 7 stroke: green, stroke-width:2px
+        CR(Crop Rotation)-->R; style CR fill:blue
+        linkStyle 8 stroke:green, stroke-width:2px
         ")
 
 make_variables <- function(est,n=1)
@@ -25,17 +35,17 @@ make_variables(as.estimate(input_estimates))
 Market_price
 
 make_variables(as.estimate(input_estimates))
-Labor_cost + Management_cost
+Establishment_cost + Management_cost
 
-input_estimates <- data.frame(variable = c("Yield", "Market_price", "Labor_cost", "Management_cost"),
+input_estimates <- data.frame(variable = c("Yield", "Market_price", "Establishment_cost", "Management_cost"),
                               lower = c(6000, 3, 500, 100),
                               median = NA,
                               upper = c(14000, 8, 1000, 2000),
                               distribution = c("posnorm", "posnorm", "posnorm", "posnorm"),
-                              label = c("Yield (kg/ha)", "Price (USD/kg)", "Labor cost (USD/ha)", "Management cost(USD/ha)"),
-                              Description = c("Yield in a sweet cherry farm under normal conditions",
-                                              "Price of sweet cherry in a normal season",
-                                              "Labor costs in a normal season",
+                              label = c("Yield (kg/ha)", "Price (USD/kg)", "Establishment cost (USD)", "Management cost(USD/ha)"),
+                              Description = c("Yield of the plot under normal conditions",
+                                              "Price for crops in a normal season",
+                                              "Establishment cost of the intervention",
                                               "Management cost in a normal season"))
 
 input_estimates
@@ -69,6 +79,7 @@ chile_mc_simulation
 # plot_distributions ####
 plot_distributions(mcSimulation_object = chile_mc_simulation,
                    vars = "final_result",
-                   method = "hist_simple_overlay",
+                   method = "smooth_simple_overlay",
                    old_names = "final_result",
                    new_names = "Outcome distribution for profits")
+
